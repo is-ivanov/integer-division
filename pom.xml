@@ -8,8 +8,8 @@
 	<name>Integer Division</name>
 	<description>Program divide numbers and prints result into console in Long Division type in Eurasia notation</description>
 	<build>
-<!-- 		<sourceDirectory>src</sourceDirectory> -->
-<!-- 		<testSourceDirectory>test</testSourceDirectory> -->
+		<sourceDirectory>src</sourceDirectory>
+		<testSourceDirectory>test</testSourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
