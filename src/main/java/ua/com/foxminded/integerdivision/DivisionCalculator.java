@@ -8,15 +8,18 @@ public class DivisionCalculator {
 
         int quotient = divident / divisor;
         int remainder = divident % divisor;
+        // without minus
+        divident = Math.abs(divident);
+        divisor = Math.abs(divisor);
 
         DivisionDto divisionData = new DivisionDto();
         divisionData.setDivident(divident);
         divisionData.setDivisor(divisor);
         divisionData.setQuotient(quotient);
         divisionData.setRemainder(remainder);
-
-        divident = Math.abs(divident);
-        divisor = Math.abs(divisor);
+//      with minus
+//        divident = Math.abs(divident);
+//        divisor = Math.abs(divisor);
 
         int remainderNumber;
         int multiplyResult;
@@ -28,7 +31,7 @@ public class DivisionCalculator {
                 .split(DELIMITER_FOR_NUMBER);
 
         for (int i = 0; i < digitsDivident.length; i++) {
-            remainderStep.append(digitsDivident[i]); // как сделать на след шагах, чтобы было mod + след строка число
+            remainderStep.append(digitsDivident[i]);
             remainderNumber = Integer.parseInt(remainderStep.toString());
             mod = remainderNumber % divisor;
             multiplyResult = remainderNumber / divisor * divisor;
@@ -36,7 +39,7 @@ public class DivisionCalculator {
             DivisionStep divisionStep = new DivisionStep(remainderNumber,
                     multiplyResult, mod, indent);
             divisionData.setDivisionSteps(divisionStep);
-
+            remainderStep.replace(0, remainderStep.length(), mod + "");
         }
 
         return divisionData;

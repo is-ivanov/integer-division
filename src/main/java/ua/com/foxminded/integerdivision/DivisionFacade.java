@@ -10,10 +10,13 @@ public class DivisionFacade {
     public String start(int divident, int divisor) {
 
         checkInputData(divident, divisor);
-
+        DivisionDto result = new DivisionDto();
         DivisionCalculator calculator = new DivisionCalculator();
-        calculator.calculateDivision(divident, divisor);
-        return "Test";
+        result = calculator.calculateDivision(divident, divisor);
+        DivisionFormatter divisionFormatter = new DivisionFormatter();
+        String resultString = divisionFormatter.outputResult(result);
+        
+        return resultString;
     }
 
     private void checkInputData(int divident, int divisor) {
