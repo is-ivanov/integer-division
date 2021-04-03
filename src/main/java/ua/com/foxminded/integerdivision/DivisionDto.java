@@ -46,8 +46,8 @@ public class DivisionDto {
         return this.divisionSteps;
     }
 
-    public void setDivisionSteps(DivisionStep divisionSteps) {
-        this.divisionSteps.add(divisionSteps);
+    public void setDivisionSteps(List<DivisionStep> divisionSteps) {
+        this.divisionSteps = divisionSteps;
     }
 
 }
