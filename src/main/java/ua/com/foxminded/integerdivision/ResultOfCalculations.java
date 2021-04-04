@@ -3,19 +3,19 @@ package ua.com.foxminded.integerdivision;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DivisionDto {
-    private int divident;
+public class ResultOfCalculations {
+    private int dividend;
     private int divisor;
     private int quotient;
     private int remainder;
     private List<DivisionStep> divisionSteps = new ArrayList<>();
 
-    public int getDivident() {
-        return this.divident;
+    public int getDividend() {
+        return this.dividend;
     }
 
-    public void setDivident(int divident) {
-        this.divident = divident;
+    public void setDividend(int divident) {
+        this.dividend = divident;
     }
 
     public int getDivisor() {

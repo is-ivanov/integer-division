@@ -4,19 +4,18 @@ import java.util.Objects;
 
 public class DivisionFacade {
 
-    private static final String MESSAGE_NULL_EXCEPTION = "Divident or divider is null";
-    private static final String MESSAGE_DIVIDE_NULL = "Divider can't be 0";
+    private static final String MESSAGE_NULL_EXCEPTION = "Divident or divisor is null";
+    private static final String MESSAGE_DIVIDE_NULL = "Divisor can't be 0";
 
     public String start(int dividend, int divisor) {
 
         checkInputData(dividend, divisor);
-        DivisionDto result = new DivisionDto();
         DivisionCalculator calculator = new DivisionCalculator();
-        result = calculator.calculateDivision(dividend, divisor);
+        ResultOfCalculations result = calculator.calculateResult(dividend,
+                divisor);
         DivisionFormatter divisionFormatter = new DivisionFormatter();
-        String resultString = divisionFormatter.outputResult(result);
 
-        return resultString;
+        return divisionFormatter.formatLine(result);
     }
 
     private void checkInputData(int dividend, int divisor) {

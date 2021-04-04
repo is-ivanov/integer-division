@@ -4,23 +4,20 @@ public class DivisionStep {
     private int remainderNumber;
     private int multiplyResult;
     private int mod;
-    private int indent;
 
-    public DivisionStep(int reminderNumber, int multiplyResult, int mod,
-            int indent) {
+    public DivisionStep(int remainderNumber, int multiplyResult, int mod) {
         super();
-        this.remainderNumber = reminderNumber;
+        this.remainderNumber = remainderNumber;
         this.multiplyResult = multiplyResult;
         this.mod = mod;
-        this.indent = indent;
     }
 
-    public int getReminderNumber() {
+    public int getRemainderNumber() {
         return this.remainderNumber;
     }
 
-    public void setReminderNumber(int reminderNumber) {
-        this.remainderNumber = reminderNumber;
+    public void setRemainderNumber(int remainderNumber) {
+        this.remainderNumber = remainderNumber;
     }
 
     public int getMultiplyResult() {
@@ -37,14 +34,6 @@ public class DivisionStep {
 
     public void setMod(int mod) {
         this.mod = mod;
-    }
-
-    public int getIndent() {
-        return this.indent;
-    }
-
-    public void setIndent(int indent) {
-        this.indent = indent;
     }
 
 }
