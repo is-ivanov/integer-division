@@ -28,9 +28,9 @@ class DivisionFacadeTest {
                                                      + "    --" + LF
                                                      + "     1";
     private static final String OUTPUT_DIVIDEND_ENDS_ZERO = "_4500|5" + LF
-                                                               + " 45  |---" + LF
-                                                               + " --  |900" + LF
-                                                               + "  0";
+                                                          + " 45  |---" + LF
+                                                          + " --  |900" + LF
+                                                          + "  0";
     
     private static final String OUTPUT_DIVIDEND_EQUALS_DIVISOR = "_45632|45632" + LF
                                                                + " 45632|-----" + LF
@@ -38,7 +38,7 @@ class DivisionFacadeTest {
                                                                + "     0";
     
     private static final String OUTPUT_DIVIDEND_EQUALS_ZERO = "_0|45" + LF
-                                                            + " 0|-----" + LF
+                                                            + " 0|--" + LF
                                                             + " -|0" + LF
                                                             + " 0";
 

@@ -1,6 +1,6 @@
 package ua.com.foxminded.integerdivision;
 
-public class DivisionFormatter {
+public class DivisionFormatter implements Formatable {
     private static final char SYMBOL_DASH = '-';
     private static final char SYMBOL_SPACE = ' ';
     private static final char SYMBOL_UNDERSCORE = '_';
@@ -12,6 +12,7 @@ public class DivisionFormatter {
     private static final String TEMPLATE_FORMAT_LINE_FINAL_REMAINDER = "%s%dd";
     private static final String LF = System.lineSeparator();
 
+    @Override
     public String formatLine(ResultOfCalculations result) {
         StringBuilder outputString = new StringBuilder();
         int divisor = result.getDivisor();

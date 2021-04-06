@@ -10,7 +10,7 @@ public class DivisionFacade {
         DivisionCalculator calculator = new DivisionCalculator();
         ResultOfCalculations result = calculator.calculateResult(dividend,
                 divisor);
-        DivisionFormatter divisionFormatter = new DivisionFormatter();
+        Formatable divisionFormatter = new DivisionFormatter();
 
         return divisionFormatter.formatLine(result);
     }
