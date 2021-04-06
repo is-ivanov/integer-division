@@ -1,6 +1,15 @@
 package ua.com.foxminded.integerdivision;
 
 public class DivisionFormatter {
+    private static final char SYMBOL_DASH = '-';
+    private static final char SYMBOL_SPACE = ' ';
+    private static final char SYMBOL_UNDERSCORE = '_';
+    private static final char SYMBOL_PERCENT = '%';
+    private static final String TEMPLATE_FORMAT_LINES = "%s%ds";
+    private static final String TEMPLATE_FORMAT_FIRST_LINE = "_%d|%d";
+    private static final String TEMPLATE_FORMAT_SECOND_LINE = "%s|%s";
+    private static final String TEMPLATE_FORMAT_THIRD_LINE = "%s|%d";
+    private static final String TEMPLATE_FORMAT_LINE_FINAL_REMAINDER = "%s%dd";
     private static final String LF = System.lineSeparator();
 
     public String formatLine(ResultOfCalculations result) {
@@ -18,29 +27,30 @@ public class DivisionFormatter {
             int remainderNumber = step.getRemainderNumber();
 
             if (multiplyResult >= divisor) {
-                String format = String.format("%s%ds", "%", indent + 2);
+                String format = String.format(TEMPLATE_FORMAT_LINES,
+                        SYMBOL_PERCENT, indent + 2);
 
                 String remainderString = String.format(format,
-                        "_" + remainderNumber);
+                        SYMBOL_UNDERSCORE + remainderNumber);
                 String multiplyString = String.format(format, multiplyResult);
                 String underline = String.format(format,
-                        repeateChar(countDigit(remainderNumber), '-'));
+                        repeateChar(countDigit(remainderNumber), SYMBOL_DASH));
                 indentFinalRemainder = underline.length();
                 if (i == 0) {
                     outputString.append(createFirstThreeLines(dividend, divisor,
                             quotient, multiplyString, underline));
                 } else {
-                    outputString.append(remainderString).append(LF);
-                    outputString.append(multiplyString).append(LF);
-                    outputString.append(underline).append(LF);
+                    outputString.append(remainderString).append(LF)
+                                .append(multiplyString).append(LF)
+                                .append(underline).append(LF);
                 }
-
                 i++;
             }
             indent++;
         }
         String finalRemainder = String
-                .format(String.format("%s%dd", "%", indentFinalRemainder), remainder);
+                .format(String.format(TEMPLATE_FORMAT_LINE_FINAL_REMAINDER,
+                        SYMBOL_PERCENT, indentFinalRemainder), remainder);
         outputString.append(finalRemainder);
         return outputString.toString();
     }
@@ -48,16 +58,21 @@ public class DivisionFormatter {
     private String createFirstThreeLines(int dividend, int divisor,
             int quotient, String multiplyString, String underline) {
         StringBuilder firstThreeLines = new StringBuilder();
-        String firstString = String.format("_%d|%d", dividend, divisor);
+        String firstString = String.format(TEMPLATE_FORMAT_FIRST_LINE, dividend,
+                divisor);
         firstThreeLines.append(firstString).append(LF);
-        String secondStringAfterMultiply = String.format("%s|%s",
+        String secondStringAfterMultiply = String.format(
+                TEMPLATE_FORMAT_SECOND_LINE,
                 repeateChar(countDigit(dividend) + 1 - multiplyString.length(),
-                        ' '),
-                repeateChar(countDigit(quotient), '-'));
+                        SYMBOL_SPACE),
+                repeateChar(countDigit(Math.max(divisor, quotient)),
+                        SYMBOL_DASH));
         firstThreeLines.append(multiplyString).append(secondStringAfterMultiply)
                 .append(LF);
-        String thirdStringAfterUnderline = String.format("%s|%d",
-                repeateChar(countDigit(dividend) + 1 - underline.length(), ' '),
+        String thirdStringAfterUnderline = String.format(
+                TEMPLATE_FORMAT_THIRD_LINE,
+                repeateChar(countDigit(dividend) + 1 - underline.length(),
+                        SYMBOL_SPACE),
                 quotient);
         firstThreeLines.append(underline).append(thirdStringAfterUnderline)
                 .append(LF);

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -26,10 +27,21 @@ class DivisionFacadeTest {
                                                      + "    24" + LF
                                                      + "    --" + LF
                                                      + "     1";
-    private static final String OUTPUT_WHEN_DIVIDEND_ENDS_ZERO = "_4500|5" + LF
+    private static final String OUTPUT_DIVIDEND_ENDS_ZERO = "_4500|5" + LF
                                                                + " 45  |---" + LF
                                                                + " --  |900" + LF
                                                                + "  0";
+    
+    private static final String OUTPUT_DIVIDEND_EQUALS_DIVISOR = "_45632|45632" + LF
+                                                               + " 45632|-----" + LF
+                                                               + " -----|1" + LF
+                                                               + "     0";
+    
+    private static final String OUTPUT_DIVIDEND_EQUALS_ZERO = "_0|45" + LF
+                                                            + " 0|-----" + LF
+                                                            + " -|0" + LF
+                                                            + " 0";
+
     private static DivisionFacade divisionFacade;
 
     @BeforeEach
@@ -45,7 +57,7 @@ class DivisionFacadeTest {
     }
 
     @Test
-    @DisplayName("test input 0 to divisor should output exception")
+    @DisplayName("test input zero to divisor should output exception")
     void testDivideByZero() {
         Exception exception = assertThrows(IllegalArgumentException.class,
                 () -> divisionFacade.start(15, 0));
@@ -56,6 +68,23 @@ class DivisionFacadeTest {
     @DisplayName("test input dividend end in several zeros")
     void testDividendEndsSeveralZeros() {
         String actualString = divisionFacade.start(4500, 5);
-        assertEquals(OUTPUT_WHEN_DIVIDEND_ENDS_ZERO, actualString);
+        assertEquals(OUTPUT_DIVIDEND_ENDS_ZERO, actualString);
     }
+    
+    @Test
+    @DisplayName("test dividend equals divisor")
+    void testDividendEqualsDivisor() {
+        int i = 45632;
+        String actualString = divisionFacade.start(i, i);
+        assertEquals(OUTPUT_DIVIDEND_EQUALS_DIVISOR, actualString);
+    }
+    
+    @Test
+    @Disabled
+    @DisplayName("test zero to dividend")
+    void testZeroToDividend() {
+        String actualString = divisionFacade.start(0, 45);
+        assertEquals(OUTPUT_DIVIDEND_EQUALS_ZERO, actualString);
+    }
+    
 }
