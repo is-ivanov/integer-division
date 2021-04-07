@@ -6,8 +6,11 @@ public class StartLongDivision {
     public static void main(String[] args) {
         DataInputer dataInputer = new DataInputer();
         int[] initialData = dataInputer.getInitialData();
+        
+        DivisionCalculator calculator = new DivisionCalculator();
+        Formatable formatter = new DivisionFormatter();
 
-        DivisionFacade longDivision = new DivisionFacade();
+        DivisionFacade longDivision = new DivisionFacade(calculator, formatter);
         System.out.println(longDivision.start(initialData[0], initialData[1]));
 
     }

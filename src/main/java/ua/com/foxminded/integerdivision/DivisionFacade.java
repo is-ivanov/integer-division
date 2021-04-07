@@ -4,15 +4,22 @@ public class DivisionFacade {
 
     private static final String MESSAGE_DIVIDE_NULL = "Divisor can't be 0";
 
+    DivisionCalculator calculator;
+    Formatable formatter;
+
+    public DivisionFacade(DivisionCalculator calculator, Formatable formatter) {
+        this.calculator = calculator;
+        this.formatter = formatter;
+    }
+
     public String start(int dividend, int divisor) {
 
         checkInputData(divisor);
-        DivisionCalculator calculator = new DivisionCalculator();
+
         ResultOfCalculations result = calculator.calculateResult(dividend,
                 divisor);
-        Formatable divisionFormatter = new DivisionFormatter();
 
-        return divisionFormatter.formatLine(result);
+        return formatter.formatLine(result);
     }
 
     private void checkInputData(int divisor) {
