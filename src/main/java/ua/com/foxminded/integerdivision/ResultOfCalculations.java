@@ -9,7 +9,7 @@ public class ResultOfCalculations {
     private final int remainder;
     private final List<DivisionStep> divisionSteps;
 
-    private ResultOfCalculations(ResultBuilder builder) {
+    private ResultOfCalculations(ResultOfCalculationsBuilder builder) {
         this.dividend = builder.dividend;
         this.divisor = builder.divisor;
         this.quotient = builder.quotient;
@@ -38,29 +38,73 @@ public class ResultOfCalculations {
         return this.divisionSteps;
     }
 
-    public static class ResultBuilder {
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + this.dividend;
+        result = prime * result + ((this.divisionSteps == null) ? 0
+                : this.divisionSteps.hashCode());
+        result = prime * result + this.divisor;
+        result = prime * result + this.quotient;
+        result = prime * result + this.remainder;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ResultOfCalculations other = (ResultOfCalculations) obj;
+        if (this.dividend != other.dividend)
+            return false;
+        if (this.divisionSteps == null) {
+            if (other.divisionSteps != null)
+                return false;
+        } else if (!this.divisionSteps.equals(other.divisionSteps))
+            return false;
+        if (this.divisor != other.divisor)
+            return false;
+        if (this.quotient != other.quotient)
+            return false;
+        if (this.remainder != other.remainder)
+            return false;
+        return true;
+    }
+
+
+
+
+
+
+    public static class ResultOfCalculationsBuilder {
         private int dividend;
         private int divisor;
         private int quotient;
         private int remainder;
         private List<DivisionStep> divisionSteps;
 
-        public ResultBuilder(int dividend, int divisor) {
+        public ResultOfCalculationsBuilder(int dividend, int divisor) {
             this.dividend = dividend;
             this.divisor = divisor;
         }
 
-        public ResultBuilder quotient(int quotient) {
+        public ResultOfCalculationsBuilder quotient(int quotient) {
             this.quotient = quotient;
             return this;
         }
         
-        public ResultBuilder remainder(int remainder) {
+        public ResultOfCalculationsBuilder remainder(int remainder) {
             this.remainder = remainder;
             return this;
         }
 
-        public ResultBuilder divisionSteps(List<DivisionStep> divisionSteps) {
+        public ResultOfCalculationsBuilder divisionSteps(List<DivisionStep> divisionSteps) {
             this.divisionSteps = divisionSteps;
             return this;
         }

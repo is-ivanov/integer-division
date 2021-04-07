@@ -17,7 +17,7 @@ public class DivisionCalculator {
             DivisionStep divisionStep = new DivisionStep(0,
                     0, 0);
             listDivisionSteps.add(divisionStep);
-            return new ResultOfCalculations.ResultBuilder(dividend, divisor)
+            return new ResultOfCalculations.ResultOfCalculationsBuilder(dividend, divisor)
                     .quotient(quotient).remainder(remainder).divisionSteps(listDivisionSteps)
                     .build();
         } 
@@ -37,7 +37,7 @@ public class DivisionCalculator {
             listDivisionSteps.add(divisionStep);
             mod *= 10;
         }
-        return new ResultOfCalculations.ResultBuilder(dividend, divisor)
+        return new ResultOfCalculations.ResultOfCalculationsBuilder(dividend, divisor)
                 .quotient(quotient).remainder(remainder)
                 .divisionSteps(listDivisionSteps).build();
     }
