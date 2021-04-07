@@ -6,7 +6,6 @@ public class DivisionStep {
     private int mod;
 
     public DivisionStep(int remainderNumber, int multiplyResult, int mod) {
-        super();
         this.remainderNumber = remainderNumber;
         this.multiplyResult = multiplyResult;
         this.mod = mod;

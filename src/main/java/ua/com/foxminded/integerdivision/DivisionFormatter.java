@@ -22,6 +22,17 @@ public class DivisionFormatter implements Formatable {
         int indentFinalRemainder = 0;
         int indent = 0;
         int i = 0;
+
+        if (dividend == 0) {
+            StringBuilder nullDividendOutputString = new StringBuilder();
+            nullDividendOutputString
+                    .append(createFirstThreeLines(dividend, divisor, quotient,
+                            " 0", " 0"))
+                    .append(SYMBOL_SPACE).append(SYMBOL_DASH).append(LF)
+                    .append(" 0");
+
+            return nullDividendOutputString.toString();
+        }
         for (DivisionStep step : result.getDivisionSteps()) {
 
             int multiplyResult = step.getMultiplyResult();
@@ -42,8 +53,8 @@ public class DivisionFormatter implements Formatable {
                             quotient, multiplyString, underline));
                 } else {
                     outputString.append(remainderString).append(LF)
-                                .append(multiplyString).append(LF)
-                                .append(underline).append(LF);
+                            .append(multiplyString).append(LF).append(underline)
+                            .append(LF);
                 }
                 i++;
             }

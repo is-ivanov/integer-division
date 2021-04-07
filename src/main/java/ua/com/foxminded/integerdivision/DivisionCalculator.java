@@ -11,16 +11,19 @@ public class DivisionCalculator {
         dividend = Math.abs(dividend);
         divisor = Math.abs(divisor);
 
-        ResultOfCalculations divisionData = new ResultOfCalculations();
+        List<DivisionStep> listDivisionSteps = new ArrayList<>();
 
-        divisionData.setDividend(dividend);
-        divisionData.setDivisor(divisor);
-        divisionData.setQuotient(quotient);
-        divisionData.setRemainder(remainder);
-
+        if (dividend == 0) {
+            DivisionStep divisionStep = new DivisionStep(0,
+                    0, 0);
+            listDivisionSteps.add(divisionStep);
+            return new ResultOfCalculations.ResultBuilder(dividend, divisor)
+                    .quotient(quotient).remainder(remainder).divisionSteps(listDivisionSteps)
+                    .build();
+        } 
+        
         int[] digitsDividend = reverseArray(extractDigitToArray(dividend));
 
-        List<DivisionStep> listDivisionSteps = new ArrayList<>();
         int mod = 0;
         int remainderNumber;
         int multiplyResult;
@@ -34,8 +37,9 @@ public class DivisionCalculator {
             listDivisionSteps.add(divisionStep);
             mod *= 10;
         }
-        divisionData.setDivisionSteps(listDivisionSteps);
-        return divisionData;
+        return new ResultOfCalculations.ResultBuilder(dividend, divisor)
+                .quotient(quotient).remainder(remainder)
+                .divisionSteps(listDivisionSteps).build();
     }
 
     private int[] extractDigitToArray(int number) {

@@ -5,11 +5,11 @@ public class DivisionFacade {
     private static final String MESSAGE_DIVIDE_NULL = "Divisor can't be 0";
 
     DivisionCalculator calculator;
-    Formatable formatter;
+    Formatable divisionFormatter;
 
     public DivisionFacade(DivisionCalculator calculator, Formatable formatter) {
         this.calculator = calculator;
-        this.formatter = formatter;
+        this.divisionFormatter = formatter;
     }
 
     public String start(int dividend, int divisor) {
@@ -19,7 +19,7 @@ public class DivisionFacade {
         ResultOfCalculations result = calculator.calculateResult(dividend,
                 divisor);
 
-        return formatter.formatLine(result);
+        return divisionFormatter.formatLine(result);
     }
 
     private void checkInputData(int divisor) {
