@@ -5,6 +5,8 @@ public class DivisionFormatter implements Formatable {
     private static final char SYMBOL_SPACE = ' ';
     private static final char SYMBOL_UNDERSCORE = '_';
     private static final char SYMBOL_PERCENT = '%';
+    private static final String PART_OF_STRING_WHEN_DIVIDEND_ZERO = " 0";
+    private static final String UNDERLINE_WHEN_DIVIDEND_ZERO_STRING = " -";
     private static final String TEMPLATE_FORMAT_LINES = "%s%ds";
     private static final String TEMPLATE_FORMAT_FIRST_LINE = "_%d|%d";
     private static final String TEMPLATE_FORMAT_SECOND_LINE = "%s|%s";
@@ -27,9 +29,9 @@ public class DivisionFormatter implements Formatable {
             StringBuilder nullDividendOutputString = new StringBuilder();
             nullDividendOutputString
                     .append(createFirstThreeLines(dividend, divisor, quotient,
-                            " 0", " 0"))
-                    .append(SYMBOL_SPACE).append(SYMBOL_DASH).append(LF)
-                    .append(" 0");
+                            PART_OF_STRING_WHEN_DIVIDEND_ZERO,
+                            UNDERLINE_WHEN_DIVIDEND_ZERO_STRING))
+                    .append(PART_OF_STRING_WHEN_DIVIDEND_ZERO);
 
             return nullDividendOutputString.toString();
         }
@@ -43,7 +45,7 @@ public class DivisionFormatter implements Formatable {
                         SYMBOL_PERCENT, indent + 2);
 
                 String remainderString = String.format(format,
-                        SYMBOL_UNDERSCORE + remainderNumber);
+                        Character.toString(SYMBOL_UNDERSCORE) + remainderNumber);
                 String multiplyString = String.format(format, multiplyResult);
                 String underline = String.format(format,
                         repeateChar(countDigit(remainderNumber), SYMBOL_DASH));
