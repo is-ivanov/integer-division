@@ -77,8 +77,15 @@ public class ResultOfCalculations {
         return true;
     }
 
-
-
+    
+    
+    @Override
+    public String toString() {
+        return "ResultOfCalculations [dividend=" + this.dividend + ", divisor="
+                + this.divisor + ", quotient=" + this.quotient + ", remainder="
+                + this.remainder + ", divisionSteps=" + this.divisionSteps
+                + "]";
+    }
 
 
 

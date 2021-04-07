@@ -63,4 +63,11 @@ public class DivisionStep {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "DivisionStep [remainderNumber=" + this.remainderNumber
+                + ", multiplyResult=" + this.multiplyResult + ", mod="
+                + this.mod + "]";
+    }
+
 }
