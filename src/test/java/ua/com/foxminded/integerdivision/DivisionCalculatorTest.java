@@ -54,7 +54,7 @@ class DivisionCalculatorTest {
                 .remainder(0)
                 .divisionSteps(stepsOfCalculate)
                 .build();
-        assertEquals(result.toString(), actual.toString());
+        assertEquals(result, actual);
     }
     
     @Test
@@ -68,7 +68,7 @@ class DivisionCalculatorTest {
                 .remainder(0)
                 .divisionSteps(stepsOfCalculate)
                 .build();
-        assertEquals(result.toString(), actual.toString());
+        assertEquals(result, actual);
     }
 
 }
