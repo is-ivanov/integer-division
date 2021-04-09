@@ -26,14 +26,7 @@ public class DivisionFormatter implements Formatable {
         int i = 0;
 
         if (dividend == 0) {
-            StringBuilder nullDividendOutputString = new StringBuilder();
-            nullDividendOutputString
-                    .append(getHeader(dividend, divisor, quotient,
-                            PART_OF_STRING_WHEN_DIVIDEND_ZERO,
-                            UNDERLINE_WHEN_DIVIDEND_ZERO_STRING))
-                    .append(PART_OF_STRING_WHEN_DIVIDEND_ZERO);
-
-            return nullDividendOutputString.toString();
+            return getFormatDividendZero(divisor, dividend, quotient);
         }
         for (DivisionStep step : result.getDivisionSteps()) {
 
@@ -41,23 +34,9 @@ public class DivisionFormatter implements Formatable {
             int remainderNumber = step.getRemainderNumber();
 
             if (multiplyResult >= divisor) {
-                String format = String.format(TEMPLATE_FORMAT_LINES,
-                        SYMBOL_PERCENT, indent + 2);
-
-                String remainderString = String.format(format,
-                        Character.toString(SYMBOL_UNDERSCORE) + remainderNumber);
-                String multiplyString = String.format(format, multiplyResult);
-                String underline = String.format(format,
-                        repeateChar(countDigit(remainderNumber), SYMBOL_DASH));
-                indentFinalRemainder = underline.length();
-                if (i == 0) {
-                    outputString.append(getHeader(dividend, divisor,
-                            quotient, multiplyString, underline));
-                } else {
-                    outputString.append(remainderString).append(LF)
-                            .append(multiplyString).append(LF).append(underline)
-                            .append(LF);
-                }
+                indentFinalRemainder = formatStepDivision(outputString, divisor,
+                        dividend, quotient, indent, i, multiplyResult,
+                        remainderNumber);
                 i++;
             }
             indent++;
@@ -69,8 +48,45 @@ public class DivisionFormatter implements Formatable {
         return outputString.toString();
     }
 
-    private String getHeader(int dividend, int divisor,
-            int quotient, String multiplyString, String underline) {
+    private int formatStepDivision(StringBuilder outputString, int divisor, int dividend,
+            int quotient, int indent, int i, int multiplyResult,
+            int remainderNumber) {
+        int indentFinalRemainder;
+        String format = String.format(TEMPLATE_FORMAT_LINES,
+                SYMBOL_PERCENT, indent + 2);
+
+        String remainderString = String.format(format,
+                Character.toString(SYMBOL_UNDERSCORE)
+                        + remainderNumber);
+        String multiplyString = String.format(format, multiplyResult);
+        String underline = String.format(format,
+                repeateChar(countDigit(remainderNumber), SYMBOL_DASH));
+        if (i == 0) {
+            outputString.append(getHeader(dividend, divisor, quotient,
+                    multiplyString, underline));
+        } else {
+            outputString.append(remainderString).append(LF)
+                    .append(multiplyString).append(LF).append(underline)
+                    .append(LF);
+        }
+        indentFinalRemainder = underline.length();
+        return indentFinalRemainder;
+    }
+
+    private String getFormatDividendZero(int divisor, int dividend,
+            int quotient) {
+        StringBuilder outputString = new StringBuilder();
+        outputString
+                .append(getHeader(dividend, divisor, quotient,
+                        PART_OF_STRING_WHEN_DIVIDEND_ZERO,
+                        UNDERLINE_WHEN_DIVIDEND_ZERO_STRING))
+                .append(PART_OF_STRING_WHEN_DIVIDEND_ZERO);
+
+        return outputString.toString();
+    }
+
+    private String getHeader(int dividend, int divisor, int quotient,
+            String multiplyString, String underline) {
         StringBuilder firstThreeLines = new StringBuilder();
         String firstString = String.format(TEMPLATE_FORMAT_FIRST_LINE, dividend,
                 divisor);
