@@ -11,7 +11,7 @@ public class StartLongDivision {
         Formatable formatter = new DivisionFormatter();
 
         DivisionFacade longDivision = new DivisionFacade(calculator, formatter);
-        System.out.println(longDivision.start(initialData[0], initialData[1]));
+        System.out.println(longDivision.makeDivision(initialData[0], initialData[1]));
 
     }
 

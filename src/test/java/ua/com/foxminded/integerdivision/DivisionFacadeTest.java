@@ -36,7 +36,7 @@ class DivisionFacadeTest {
     @DisplayName("test case: divisor equals zero -> Facade should throw IllegalArgumentException with right message")
     void testDivisorEqualsZero_ThrowException() {
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> divisionFacade.start(15, 0));
+                () -> divisionFacade.makeDivision(15, 0));
         assertEquals(MESSAGE_DIVIDE_BY_ZERO, exception.getMessage());
     }
         
@@ -47,7 +47,7 @@ class DivisionFacadeTest {
         @Test
         @DisplayName("Facade should call calculator with right arguments")
         void testDividendEqualsZero_CallCalculator() {
-            divisionFacade.start(0, 15);
+            divisionFacade.makeDivision(0, 15);
             verify(calculatorMock).calculateResult(0, 15);
         }
         
@@ -55,17 +55,17 @@ class DivisionFacadeTest {
         @DisplayName("Facade should call formatter after calculator with right object")
         void testDividendEqualsZero_CallFormatterAfterCalculator() {
             doReturn(result).when(calculatorMock).calculateResult(0, 15);
-            divisionFacade.start(0, 15);
-            verify(formatterMock).formatLine(result);
+            divisionFacade.makeDivision(0, 15);
+            verify(formatterMock).formatDivision(result);
         }
         
         @Test
         @DisplayName("Facade should output right string from formatter")
         void testDividendEqualsZero_RightOutput () {
             doReturn(result).when(calculatorMock).calculateResult(0, 15);
-            when(formatterMock.formatLine(result)).thenReturn(RESULT_DIVISION_ZERO_DIVIDEND);
+            when(formatterMock.formatDivision(result)).thenReturn(RESULT_DIVISION_ZERO_DIVIDEND);
             
-            assertEquals(RESULT_DIVISION_ZERO_DIVIDEND, divisionFacade.start(0, 15));
+            assertEquals(RESULT_DIVISION_ZERO_DIVIDEND, divisionFacade.makeDivision(0, 15));
         }
         
     }
@@ -77,7 +77,7 @@ class DivisionFacadeTest {
         @Test
         @DisplayName("Facade should call calculator with right arguments")
         void testNormalDivision_CallCalculator() {
-            divisionFacade.start(17895, 15);
+            divisionFacade.makeDivision(17895, 15);
             verify(calculatorMock).calculateResult(17895, 15);
         }
         
@@ -85,17 +85,17 @@ class DivisionFacadeTest {
         @DisplayName("Facade should call formatter after calculator with right object")
         void testNormalDivision_CallFormatterAfterCalculator() {
             doReturn(result).when(calculatorMock).calculateResult(78965, 745);
-            divisionFacade.start(78965, 745);
-            verify(formatterMock).formatLine(result);
+            divisionFacade.makeDivision(78965, 745);
+            verify(formatterMock).formatDivision(result);
         }
         
         @Test
         @DisplayName("Facade should output right string from formatter")
         void testNormalDivision_RightOutput () {
             doReturn(result).when(calculatorMock).calculateResult(457, 15);
-            when(formatterMock.formatLine(result)).thenReturn(RESULT_DIVISION);
+            when(formatterMock.formatDivision(result)).thenReturn(RESULT_DIVISION);
             
-            assertEquals(RESULT_DIVISION, divisionFacade.start(457, 15));
+            assertEquals(RESULT_DIVISION, divisionFacade.makeDivision(457, 15));
         }
         
     }

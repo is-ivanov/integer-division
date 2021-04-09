@@ -15,7 +15,7 @@ public class DivisionFormatter implements Formatable {
     private static final String LF = System.lineSeparator();
 
     @Override
-    public String formatLine(ResultOfCalculations result) {
+    public String formatDivision(ResultOfCalculations result) {
         StringBuilder outputString = new StringBuilder();
         int divisor = result.getDivisor();
         int dividend = result.getDividend();
@@ -28,7 +28,7 @@ public class DivisionFormatter implements Formatable {
         if (dividend == 0) {
             StringBuilder nullDividendOutputString = new StringBuilder();
             nullDividendOutputString
-                    .append(createFirstThreeLines(dividend, divisor, quotient,
+                    .append(getHeader(dividend, divisor, quotient,
                             PART_OF_STRING_WHEN_DIVIDEND_ZERO,
                             UNDERLINE_WHEN_DIVIDEND_ZERO_STRING))
                     .append(PART_OF_STRING_WHEN_DIVIDEND_ZERO);
@@ -51,7 +51,7 @@ public class DivisionFormatter implements Formatable {
                         repeateChar(countDigit(remainderNumber), SYMBOL_DASH));
                 indentFinalRemainder = underline.length();
                 if (i == 0) {
-                    outputString.append(createFirstThreeLines(dividend, divisor,
+                    outputString.append(getHeader(dividend, divisor,
                             quotient, multiplyString, underline));
                 } else {
                     outputString.append(remainderString).append(LF)
@@ -69,7 +69,7 @@ public class DivisionFormatter implements Formatable {
         return outputString.toString();
     }
 
-    private String createFirstThreeLines(int dividend, int divisor,
+    private String getHeader(int dividend, int divisor,
             int quotient, String multiplyString, String underline) {
         StringBuilder firstThreeLines = new StringBuilder();
         String firstString = String.format(TEMPLATE_FORMAT_FIRST_LINE, dividend,

@@ -66,7 +66,7 @@ class DivisionFormatterTest {
                 .remainder(1)
                 .divisionSteps(stepsOfCalculate)
                 .build();
-        assertEquals(OUTPUT_EXAMPLE_TASK4, divisionFormatter.formatLine(result));
+        assertEquals(OUTPUT_EXAMPLE_TASK4, divisionFormatter.formatDivision(result));
     }
     
     @Test
@@ -83,7 +83,7 @@ class DivisionFormatterTest {
                 .remainder(0)
                 .divisionSteps(stepsOfCalculate)
                 .build();
-        assertEquals(OUTPUT_DIVIDEND_ENDS_ZERO, divisionFormatter.formatLine(result));
+        assertEquals(OUTPUT_DIVIDEND_ENDS_ZERO, divisionFormatter.formatDivision(result));
     }
     
     @Test
@@ -101,7 +101,7 @@ class DivisionFormatterTest {
                 .remainder(0)
                 .divisionSteps(stepsOfCalculate)
                 .build();
-        assertEquals(OUTPUT_DIVIDEND_EQUALS_DIVISOR, divisionFormatter.formatLine(result));
+        assertEquals(OUTPUT_DIVIDEND_EQUALS_DIVISOR, divisionFormatter.formatDivision(result));
     }
     
     @Test
@@ -115,7 +115,7 @@ class DivisionFormatterTest {
                 .remainder(0)
                 .divisionSteps(stepsOfCalculate)
                 .build();
-        assertEquals(OUTPUT_DIVIDEND_EQUALS_ZERO, divisionFormatter.formatLine(result));
+        assertEquals(OUTPUT_DIVIDEND_EQUALS_ZERO, divisionFormatter.formatDivision(result));
     }
 
 }
