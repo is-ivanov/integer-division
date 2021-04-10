@@ -21,68 +21,62 @@ public class DivisionFormatter implements Formatable {
         int dividend = result.getDividend();
         int quotient = result.getQuotient();
         int remainder = result.getRemainder();
+
+        if (dividend == 0) {
+            return formatResultDividendZero(divisor, dividend, quotient);
+        }
+        
+        int indentFinalRemainder = formatResultDivision(result, outputString,
+                divisor, dividend, quotient);
+        outputString.append(getFinalString(remainder, indentFinalRemainder));
+        return outputString.toString();
+    }
+
+    private String formatResultDividendZero(int divisor, int dividend,
+            int quotient) {
+        StringBuilder outputString = new StringBuilder();
+        return outputString
+                .append(getHeader(dividend, divisor, quotient,
+                        PART_OF_STRING_WHEN_DIVIDEND_ZERO,
+                        UNDERLINE_WHEN_DIVIDEND_ZERO_STRING))
+                .append(PART_OF_STRING_WHEN_DIVIDEND_ZERO)
+                .toString();
+    }
+
+    private int formatResultDivision(ResultOfCalculations result,
+            StringBuilder outputString, int divisor, int dividend,
+            int quotient) {
         int indentFinalRemainder = 0;
         int indent = 0;
         int i = 0;
-
-        if (dividend == 0) {
-            return getFormatDividendZero(divisor, dividend, quotient);
-        }
         for (DivisionStep step : result.getDivisionSteps()) {
-
+    
             int multiplyResult = step.getMultiplyResult();
             int remainderNumber = step.getRemainderNumber();
-
+    
             if (multiplyResult >= divisor) {
-                indentFinalRemainder = formatStepDivision(outputString, divisor,
-                        dividend, quotient, indent, i, multiplyResult,
-                        remainderNumber);
+                String format = String.format(TEMPLATE_FORMAT_LINES,
+                        SYMBOL_PERCENT, indent + 2);
+    
+                String remainderString = String.format(format,
+                        Character.toString(SYMBOL_UNDERSCORE)
+                                + remainderNumber);
+                String multiplyString = String.format(format, multiplyResult);
+                String underline = String.format(format,
+                        repeateChar(countDigit(remainderNumber), SYMBOL_DASH));
+                indentFinalRemainder = underline.length();
+                if (i == 0) {
+                    outputString.append(getHeader(dividend, divisor, quotient,
+                            multiplyString, underline));
+                } else {
+                    outputString.append(getOtherSteps(remainderString,
+                            multiplyString, underline));
+                }
                 i++;
             }
             indent++;
         }
-        String finalRemainder = String
-                .format(String.format(TEMPLATE_FORMAT_LINE_FINAL_REMAINDER,
-                        SYMBOL_PERCENT, indentFinalRemainder), remainder);
-        outputString.append(finalRemainder);
-        return outputString.toString();
-    }
-
-    private int formatStepDivision(StringBuilder outputString, int divisor, int dividend,
-            int quotient, int indent, int i, int multiplyResult,
-            int remainderNumber) {
-        int indentFinalRemainder;
-        String format = String.format(TEMPLATE_FORMAT_LINES,
-                SYMBOL_PERCENT, indent + 2);
-
-        String remainderString = String.format(format,
-                Character.toString(SYMBOL_UNDERSCORE)
-                        + remainderNumber);
-        String multiplyString = String.format(format, multiplyResult);
-        String underline = String.format(format,
-                repeateChar(countDigit(remainderNumber), SYMBOL_DASH));
-        if (i == 0) {
-            outputString.append(getHeader(dividend, divisor, quotient,
-                    multiplyString, underline));
-        } else {
-            outputString.append(remainderString).append(LF)
-                    .append(multiplyString).append(LF).append(underline)
-                    .append(LF);
-        }
-        indentFinalRemainder = underline.length();
         return indentFinalRemainder;
-    }
-
-    private String getFormatDividendZero(int divisor, int dividend,
-            int quotient) {
-        StringBuilder outputString = new StringBuilder();
-        outputString
-                .append(getHeader(dividend, divisor, quotient,
-                        PART_OF_STRING_WHEN_DIVIDEND_ZERO,
-                        UNDERLINE_WHEN_DIVIDEND_ZERO_STRING))
-                .append(PART_OF_STRING_WHEN_DIVIDEND_ZERO);
-
-        return outputString.toString();
     }
 
     private String getHeader(int dividend, int divisor, int quotient,
@@ -107,6 +101,19 @@ public class DivisionFormatter implements Formatable {
         firstThreeLines.append(underline).append(thirdStringAfterUnderline)
                 .append(LF);
         return firstThreeLines.toString();
+    }
+
+    private String getOtherSteps(String remainderString, String multiplyString,
+            String underline) {
+        StringBuilder otherSteps = new StringBuilder();
+        return otherSteps.append(remainderString).append(LF)
+                .append(multiplyString).append(LF).append(underline).append(LF)
+                .toString();
+    }
+
+    private String getFinalString(int remainder, int indentFinalRemainder) {
+        return String.format(String.format(TEMPLATE_FORMAT_LINE_FINAL_REMAINDER,
+                SYMBOL_PERCENT, indentFinalRemainder), remainder);
     }
 
     private int countDigit(int number) {
