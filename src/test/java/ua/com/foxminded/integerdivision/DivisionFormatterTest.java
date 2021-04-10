@@ -41,9 +41,9 @@ class DivisionFormatterTest {
                                                             + " -|0" + LF
                                                             + " 0";
     
-    DivisionFormatter divisionFormatter;
-    ResultOfCalculations result;
-    List<DivisionStep> stepsOfCalculate;
+    private DivisionFormatter divisionFormatter;
+    private ResultOfCalculations result;
+    private List<DivisionStep> stepsOfCalculate;
 
     @BeforeEach
     void setUp() throws Exception {

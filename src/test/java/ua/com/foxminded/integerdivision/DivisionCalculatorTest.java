@@ -10,10 +10,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class DivisionCalculatorTest {
-    DivisionCalculator calculator;
-    ResultOfCalculations actual;
-    ResultOfCalculations result;
-    List <DivisionStep> stepsOfCalculate; 
+    private DivisionCalculator calculator;
+    private ResultOfCalculations actual;
+    private ResultOfCalculations result;
+    private List <DivisionStep> stepsOfCalculate; 
     
     @BeforeEach
     void setUp() throws Exception {
